@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { BookApiService } from '../book-api.service';
 import { bookNa } from '../models';
-import { createBookStart } from '../store';
+import { createBookStart, createBookSuccessfull } from '../store';
 
 @Component({
   selector: 'ws-book-new',
@@ -41,7 +41,9 @@ export class BookNewComponent implements OnDestroy {
       this.bookService
         .create(book)
         .pipe(tap(() => this.router.navigateByUrl('/')))
-        .subscribe()
+        .subscribe((book) => {
+          this.store.dispatch(createBookSuccessfull({ book }));
+        })
     );
   }
 

@@ -7,3 +7,8 @@ export const createBookStart = createAction(
     book: Book;
   }>()
 );
+
+export const createBookSuccessfull = createAction(
+  '[Book] Create Book successfull',
+  props<{ book: Book }>()
+);

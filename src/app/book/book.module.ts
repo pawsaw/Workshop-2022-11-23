@@ -15,6 +15,10 @@ import { BookNewComponent } from './book-new/book-new.component';
 import { BookRoutingModule } from './book-routing.module';
 import { BookComponent } from './book.component';
 import { BookCardComponent } from './book-card/book-card.component';
+import { StoreModule } from '@ngrx/store';
+import { booksFeatureName } from './store';
+import { bookCollectionSliceName } from './store/book-collection.slice';
+import { bookCollectionReducer } from './store/book-collection.reducer';
 
 @NgModule({
   imports: [
@@ -23,13 +27,15 @@ import { BookCardComponent } from './book-card/book-card.component';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-
+    StoreModule.forFeature(booksFeatureName, {
+      [bookCollectionSliceName]: bookCollectionReducer,
+    }),
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
   ],
   declarations: [
     BookComponent,
@@ -37,7 +43,7 @@ import { BookCardComponent } from './book-card/book-card.component';
     BookDetailComponent,
     BookEditComponent,
     BookNewComponent,
-    BookCardComponent
-  ]
+    BookCardComponent,
+  ],
 })
 export class BookModule {}
