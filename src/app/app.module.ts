@@ -6,6 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonComponentsModule } from './common-components/common-components.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,8 +19,23 @@ import { CommonComponentsModule } from './common-components/common-components.mo
     BrowserAnimationsModule,
     HammerModule,
     CommonComponentsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot(
+      {},
+      {
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictStateImmutability: true,
+          strictActionSerializability: true,
+          strictStateSerializability: true,
+        },
+      }
+    ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
