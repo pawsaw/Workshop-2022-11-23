@@ -1,4 +1,5 @@
-import { createFeatureSelector } from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import { bookCollectionReducer } from './book-collection.reducer';
 import {
   BookCollectionSlice,
   bookCollectionSliceName,
@@ -13,3 +14,7 @@ export const booksFeatureName = 'books';
 export const booksFeatureSelector = createFeatureSelector<BooksState>(
   booksFeatureName
 );
+
+export const booksReducer: ActionReducerMap<BooksState> = {
+  bookCollection: bookCollectionReducer,
+};

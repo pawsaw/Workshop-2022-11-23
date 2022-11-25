@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   createBookStart,
   createBookSuccessfull,
+  createLoadBooksComplete,
 } from './book-collection.actions';
 import { BookCollectionSlice } from './book-collection.slice';
 
@@ -18,6 +19,12 @@ export const bookCollectionReducer = createReducer(
     return {
       ...state,
       books: [...state.books, action.book],
+    };
+  }),
+  on(createLoadBooksComplete, (state, action) => {
+    return {
+      ...state,
+      books: action.books,
     };
   })
 );
