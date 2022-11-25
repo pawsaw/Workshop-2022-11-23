@@ -4,4 +4,5 @@ export const bookCollectionSliceName = 'bookCollection';
 
 export interface BookCollectionSlice {
   books: Book[];
+  loading: boolean;
 }

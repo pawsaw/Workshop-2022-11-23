@@ -1,30 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { exhaustMap, map, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { exhaustMap, map, of, tap } from 'rxjs';
+import { AppState } from '../../store';
 import { BookApiService } from '../book-api.service';
 import {
-  createLoadBooksComplete,
-  createLoadBooksStart,
+  loadBooks,
+  loadBooksStart,
+  loadBooksSuccess,
 } from './book-collection.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookCollectionEffects {
-  loadBooks = createEffect(
+  loadBooksEffect = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(createLoadBooksStart),
+        ofType(loadBooks),
+        tap(() => this.store.dispatch(loadBooksStart())),
         exhaustMap(() => this.bookApiService.getAll()),
-        map((books) => createLoadBooksComplete({ books }))
+        tap((books) => this.store.dispatch(loadBooksSuccess({ books })))
       ),
     {
-      dispatch: true,
+      dispatch: false,
     }
   );
 
   constructor(
     private actions$: Actions,
-    private bookApiService: BookApiService
+    private bookApiService: BookApiService,
+    private store: Store<AppState>
   ) {}
 }

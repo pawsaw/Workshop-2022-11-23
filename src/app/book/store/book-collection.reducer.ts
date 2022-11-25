@@ -2,12 +2,14 @@ import { createReducer, on } from '@ngrx/store';
 import {
   createBookStart,
   createBookSuccessfull,
-  createLoadBooksComplete,
+  loadBooksStart,
+  loadBooksSuccess,
 } from './book-collection.actions';
 import { BookCollectionSlice } from './book-collection.slice';
 
 export const initialBookCollectionState: BookCollectionSlice = {
   books: [],
+  loading: false,
 };
 
 export const bookCollectionReducer = createReducer(
@@ -21,10 +23,18 @@ export const bookCollectionReducer = createReducer(
       books: [...state.books, action.book],
     };
   }),
-  on(createLoadBooksComplete, (state, action) => {
+  // load books
+  on(loadBooksStart, (state, action) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  }),
+  on(loadBooksSuccess, (state, action) => {
     return {
       ...state,
       books: action.books,
+      loading: false,
     };
   })
 );

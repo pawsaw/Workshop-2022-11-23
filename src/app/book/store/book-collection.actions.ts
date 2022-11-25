@@ -13,9 +13,18 @@ export const createBookSuccessfull = createAction(
   props<{ book: Book }>()
 );
 
-export const createLoadBooksStart = createAction('[Book] Load Books Start');
-export const createLoadBooksComplete = createAction(
-  '[Book] Load Books Complete',
+// export const createLoadBooksStart = createAction('[Book] Load Books Start');
+// export const createLoadBooksComplete = createAction(
+//   '[Book] Load Books Complete',
+//   props<{
+//     books: Book[];
+//   }>()
+// );
+
+export const loadBooks = createAction('[Book][Load Books] triggered');
+export const loadBooksStart = createAction('[Book][Load Books] start');
+export const loadBooksSuccess = createAction(
+  '[Book][Load Books] success',
   props<{
     books: Book[];
   }>()
