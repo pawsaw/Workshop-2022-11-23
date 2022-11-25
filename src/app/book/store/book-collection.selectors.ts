@@ -10,3 +10,9 @@ export const booksCollectionSelector = createSelector(
   booksSliceSelector,
   (slice) => slice.books
 );
+
+export const bookByIsbnSelector = (isbn: string) =>
+  createSelector(
+    booksCollectionSelector,
+    (books) => books.find((book) => book.isbn === isbn) ?? null
+  );
