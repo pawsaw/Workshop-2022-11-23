@@ -1,3 +1,4 @@
+import { createFeatureSelector } from '@ngrx/store';
 import {
   BookCollectionSlice,
   bookCollectionSliceName,
@@ -8,3 +9,7 @@ export interface BooksState {
 }
 
 export const booksFeatureName = 'books';
+
+export const booksFeatureSelector = createFeatureSelector<BooksState>(
+  booksFeatureName
+);

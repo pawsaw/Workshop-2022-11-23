@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../store';
 import { Book } from '../models';
+import { booksCollectionSelector } from '../store';
 
 @Component({
   selector: 'ws-book-list',
@@ -13,8 +14,6 @@ export class BookListComponent {
   books$: Observable<Book[]>;
 
   constructor(private store: Store<AppState>) {
-    this.books$ = this.store.select<Book[]>(
-      (state) => state.books.bookCollection.books
-    );
+    this.books$ = this.store.select(booksCollectionSelector);
   }
 }
