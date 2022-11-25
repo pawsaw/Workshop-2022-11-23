@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { BookApiService } from '../book-api.service';
+import { AppState } from '../../store';
 import { Book } from '../models';
 
 @Component({
   selector: 'ws-book-list',
   styleUrls: ['./book-list.component.scss'],
-  templateUrl: 'book-list.component.html'
+  templateUrl: 'book-list.component.html',
 })
 export class BookListComponent {
   books$: Observable<Book[]>;
 
-  constructor(private bookData: BookApiService) {
-    this.books$ = this.bookData.getAll();
+  constructor(private store: Store<AppState>) {
+    this.books$ = this.store.select<Book[]>(
+      (state) => state.books.bookCollection.books
+    );
   }
 }

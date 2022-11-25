@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { AppState } from '../../store';
 import { BookApiService } from '../book-api.service';
 import { bookNa } from '../models';
 import { createBookStart, createBookSuccessfull } from '../store';
@@ -21,7 +22,7 @@ export class BookNewComponent implements OnDestroy {
     private router: Router,
     private fb: FormBuilder,
     private bookService: BookApiService,
-    private store: Store
+    private store: Store<AppState>
   ) {
     this.form = this.buildForm();
   }
