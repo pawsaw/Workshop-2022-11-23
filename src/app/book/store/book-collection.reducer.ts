@@ -4,10 +4,11 @@ import {
   createBookSuccessfull,
   createLoadBooksComplete,
 } from './book-collection.actions';
+import { bookCollectionAdapter } from './book-collection.adapter';
 import { BookCollectionSlice } from './book-collection.slice';
 
 export const initialBookCollectionState: BookCollectionSlice = {
-  books: [],
+  ...bookCollectionAdapter.getInitialState(),
 };
 
 export const bookCollectionReducer = createReducer(
@@ -17,14 +18,12 @@ export const bookCollectionReducer = createReducer(
   }),
   on(createBookSuccessfull, (state, action) => {
     return {
-      ...state,
-      books: [...state.books, action.book],
+      ...bookCollectionAdapter.addOne(action.book, state),
     };
   }),
   on(createLoadBooksComplete, (state, action) => {
     return {
-      ...state,
-      books: action.books,
+      ...bookCollectionAdapter.addMany(action.books, state),
     };
   })
 );
